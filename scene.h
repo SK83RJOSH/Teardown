@@ -9,6 +9,7 @@
 #include "entities/light.h"
 #include "entities/shape.h"
 #include "entities/vehicle.h"
+#include "entities/wheel.h"
 
 namespace Teardown {
 	#pragma pack(push, 1)
@@ -70,7 +71,7 @@ namespace Teardown {
 		small_vector<Entities::Entity>* m_Enemies;
 		small_vector<Entities::Entity>* m_Joints;
 		small_vector<Entities::Vehicle*>* m_Vehicles;
-		small_vector<Entities::Entity>* m_Wheels;
+		small_vector<Entities::Wheel>* m_Wheels;
 		small_vector<Entities::Entity>* m_Screens;
 		small_vector<Entities::Entity>* m_Triggers;
 		small_vector<Entities::Entity>* m_Scripts;
