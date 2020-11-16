@@ -37,5 +37,9 @@ namespace Teardown { namespace Graphics {
 		int32_t m_Invert;
 		int32_t m_HeadBob;
 	};
+
+	static_assert(sizeof(DisplayMode) == 0xCu, "DisplayMode size is incorrect!");
+	static_assert(sizeof(Buffers) == 0x3Cu, "Buffers size is incorrect!");
+	static_assert(sizeof(Options) == 0x3Cu, "Options size is incorrect!");
 #pragma pack(pop)
 } }

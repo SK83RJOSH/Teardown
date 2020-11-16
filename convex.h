@@ -50,12 +50,10 @@ namespace Teardown {
 		uint32_t dword8;
 		Vector4_f32 m_Rotation;
 		float dword14;
-		float dword18;
+		float dword20;
 		uint32_t dword1C;
-		uint64_t qword20;
 		uint32_t dword28;
-		uint8_t byte2C;
-		uint8_t gap2D[3];
+		uint8_t byte2C; uint8_t gap2D[3];
 		uint32_t m_ArrayBufferHandle;
 		uint32_t dword34;
 		small_vector<Vector3_f32> m_Vertices;
@@ -65,5 +63,11 @@ namespace Teardown {
 		AnotherBuffer m_AnotherBuffer;
 		uint8_t pad2B4[4];
 	};
+	
+	static_assert(sizeof(Convex) == 0x2B8u, "Convex size is incorrect!");
+	static_assert(sizeof(AnotherBuffer) == 0x1Cu, "AnotherBuffer size is incorrect!");
+	static_assert(sizeof(Buffer) == 0x38u, "Buffer size is incorrect!");
+	static_assert(sizeof(ShaderBinding) == 0x208, "ShaderBinding size is incorrect!");
+	static_assert(sizeof(ShaderVariable) == 0x20, "ShaderVariable size is incorrect!");
 #pragma pack(pop)
 }

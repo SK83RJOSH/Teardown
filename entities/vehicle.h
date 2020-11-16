@@ -77,5 +77,7 @@ namespace Teardown { namespace Entities {
 		uint8_t byte284;
 		uint8_t gap285[3];
 	};
+
+	static_assert(sizeof(Vehicle) == 0x288u, "Vehicle size is incorrect!");
 #pragma pack(pop)
 } }

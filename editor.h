@@ -33,4 +33,6 @@ namespace Teardown { namespace Editor {
 		SCRIPT = 0x19,
 		COUNT = 0x1A,
 	};
+
+	static_assert(sizeof(EntityType) == 0x4, "EntityType size is incorrect!");
 } }

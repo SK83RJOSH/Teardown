@@ -121,5 +121,9 @@ namespace Teardown
 		uint8_t gap_3B8[56];
 		char field_3F0;
 	};
+
+	static_assert(sizeof(Game) == 0x3EDu, "Game size is incorrect!");
+	static_assert(sizeof(Game::Timer) == 0x10u, "Game::Timer size is incorrect!");
+	static_assert(sizeof(Game::State) == 0x4u, "Game::State size is incorrect!");
 #pragma pack(pop)
 }

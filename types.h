@@ -1,6 +1,8 @@
 #pragma once
 
+#include <assert.h>
 #include <stdint.h>
+#include <iterator>
 
 namespace Teardown {
 	namespace {
@@ -68,4 +70,7 @@ namespace Teardown {
 		uint32_t m_Capacity;
 		T** m_Data;
 	};
+
+	static_assert(sizeof(small_string) == 16, "small_string size is incorrect!");
+	static_assert(sizeof(small_vector<void>) == 16, "small_vector size is incorrect!");
 };

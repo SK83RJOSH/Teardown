@@ -22,17 +22,17 @@ namespace Teardown {
 
 	struct VoxelsPaletteInfo
 	{
-		uint8_t m_Id;
-		uint8_t m_Pad4;
+		uint32_t m_Type;
 		VoxelColor m_Color;
 		VoxelMaterial m_Material;
-		uint8_t m_Pad20;
+		uint32_t m_Pad20;
 	};
 
 	struct VoxelsPalette
 	{
 		int32_t m_Id;
 		VoxelsPaletteInfo m_Palettes[256];
+		uint8_t m_Padding[2048];
 	};
 
 	// Voxel buffers can be indexed via m_Buffer[voxel_x_pos + m_BuffersSize.m_X * (voxel_y_pos + m_BuffersSize.m_Z * voxel_z_pos)]
@@ -55,5 +55,11 @@ namespace Teardown {
 		uint32_t m_VoxelCount; // Amount of "solid" voxels in the physics object; used for mass calculations
 		uint8_t pad5C[4];
 	};
+
+	static_assert(sizeof(VoxelMaterial) == 0x10u, "VoxelMaterial size is incorrect!");
+	static_assert(sizeof(VoxelColor) == 0x10u, "VoxelColor size is incorrect!");
+	static_assert(sizeof(VoxelsPaletteInfo) == 0x28u, "VoxelsPaletteInfo size is incorrect!");
+	static_assert(sizeof(VoxelsPalette) == 0x3004u, "VoxelsPalette size is incorrect!");
+	static_assert(sizeof(Voxels) == 0x60u, "Voxels size is incorrect!");
 #pragma pack(pop)
 }

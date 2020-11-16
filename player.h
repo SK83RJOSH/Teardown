@@ -116,5 +116,7 @@ namespace Teardown {
 		int64_t field_356C;
 		int field_3574;
 	};
+
+	static_assert(sizeof(Player) == 0x3578u, "Player size is incorrect!");
 #pragma pack(pop)
 }

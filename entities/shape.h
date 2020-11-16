@@ -23,7 +23,9 @@ namespace Teardown { namespace Entities {
 		Teardown::Convex* m_Convex;
 		uint64_t qwordA0;
 		float m_Emissive;
-		bool m_Broken;
+		bool m_Broken; uint8_t pad[3];
 	};
+
+	static_assert(sizeof(Shape) == 0xB0u, "Shape size is incorrect!");
 #pragma pack(pop)
 } }

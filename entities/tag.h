@@ -8,4 +8,6 @@ namespace Teardown { namespace Entities {
 		small_string m_Name;
 		small_string m_Value;
 	};
+
+	static_assert(sizeof(Tag) == 0x28u, "Tag size is incorrect!");
 } }

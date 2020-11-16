@@ -96,5 +96,8 @@ namespace Teardown {
 		uint64_t qword_788;
 		uint8_t gap_790[128];
 	};
+
+	static_assert(sizeof(Scene::RaycastFilter) == 0x50u, "Scene::RaycastFilter size is incorrect!");
+	static_assert(sizeof(Scene) == 0x810u, "Scene size is incorrect!");
 #pragma pack(pop)
 }

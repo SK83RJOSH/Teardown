@@ -42,4 +42,9 @@ namespace Teardown { namespace Entities {
 		Entity* m_Sibling;
 		Entity* m_Child;
 	};
+
+	static_assert(sizeof(Entity::vftable) == 0x20u, "Entity::vftable size is incorrect!");
+	static_assert(sizeof(Entity::Type) == 0x1u, "Entity::Type size is incorrect!");
+	static_assert(sizeof(Entity::Flags) == 0x1u, "Entity::Flags size is incorrect!");
+	static_assert(sizeof(Entity) == 0x28u, "Entity size is incorrect!");
 } }
