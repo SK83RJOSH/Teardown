@@ -126,7 +126,7 @@ namespace Teardown
 		inline static function_signature<void(__fastcall*)(Game* ptr, State state)> SetState = { "\x39\x51\x0C\x74\x2A\x8D\x42\xFF" };
 	};
 
-	inline static function_signature<void(__fastcall*)(small_string* string)> DebugLog = { "\x80\x79\x0F\x00\x74\x2A\x48\x8B\x09\x48\x8B\xD1" };
+	inline static function_signature<void(__fastcall*)(small_string* string)> DebugLog = { "\x80\x79\x0F\x00\x74\x03\x48\x8B\x09\x48\x8B\xD1\x48\x8D\x0D\x2A\x2A\x2A\x2A\xE9\x2A\x2A\x2A\x2A" };
 
 	static_assert(sizeof(Game) == 0x3EDu, "Game size is incorrect!");
 	static_assert(sizeof(Game::Timer) == 0x10u, "Game::Timer size is incorrect!");
