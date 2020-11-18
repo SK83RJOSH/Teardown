@@ -115,6 +115,10 @@ namespace Teardown {
 		int field_3568;
 		int64_t field_356C;
 		int field_3574;
+
+		inline static function_signature<void(__fastcall*)(Player* ptr, float unk1, float unk2)> UpdateInput = { "\x48\x8B\xC4\x55\x41\x56\x41\x57\x48\x8D\x68\xC8" };
+		inline static function_signature<void(__fastcall*)(Player* ptr, Transform* transform)> SetTransform = { "\x40\x53\x48\x83\xEC\x30\x33\xDB" };
+		inline static function_signature<void(__fastcall*)(Player* ptr, float amount)> Damage = { "\xF3\x0F\x10\x91\x5C\x01\x00\x00" };
 	};
 
 	static_assert(sizeof(Player) == 0x3578u, "Player size is incorrect!");

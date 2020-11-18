@@ -120,7 +120,13 @@ namespace Teardown
 		int field_3B4;
 		uint8_t gap_3B8[56];
 		char field_3F0;
+
+		inline static function_signature<void(__fastcall*)(Game* ptr)> LoadQuickSave = { "\x40\x57\x48\x81\xEC\xB0\x00\x00\x00\x48\xC7\x44\x24\x30\xFE\xFF\xFF\xFF" };
+		inline static function_signature<void(__fastcall*)(Game* ptr, __int64 unk1)> Update = { "\x48\x8B\xC4\x55\x41\x56\x41\x57\x48\x8D\xA8\x18\xF7\xFF\xFF" };
+		inline static function_signature<void(__fastcall*)(Game* ptr, State state)> SetState = { "\x39\x51\x0C\x74\x2A\x8D\x42\xFF" };
 	};
+
+	inline static function_signature<void(__fastcall*)(small_string* string)> DebugLog = { "\x80\x79\x0F\x00\x74\x2A\x48\x8B\x09\x48\x8B\xD1" };
 
 	static_assert(sizeof(Game) == 0x3EDu, "Game size is incorrect!");
 	static_assert(sizeof(Game::Timer) == 0x10u, "Game::Timer size is incorrect!");

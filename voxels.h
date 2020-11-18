@@ -54,6 +54,12 @@ namespace Teardown {
 		uint8_t pad55[3];
 		uint32_t m_VoxelCount; // Amount of "solid" voxels in the physics object; used for mass calculations
 		uint8_t pad5C[4];
+
+		inline static function_signature<Voxels*(__fastcall*)(Voxels* ptr, uint32_t width, uint32_t height, uint32_t depth)> CreateBuffer = { "\x48\x89\x5C\x24\x08\x57\x48\x83\xEC\x20\x48\x8B\xF9\x89\x11" };
+		inline static function_signature<Voxels*(__fastcall*)(Voxels* ptr)> CreatePhysics = { "\x40\x53\x56\x57\x41\x55" };
+		inline static function_signature<Voxels*(__fastcall*)(Voxels* ptr)> CreateTexture = { "\x48\x89\x4C\x24\x08\x57\x41\x54\x41\x55\x41\x57" };
+		inline static function_signature<Voxels*(__fastcall*)(Voxels* ptr, Vector3_f32* pos, float radius, int type, float probability)> Paint = { "\x48\x8B\xC4\x48\x89\x50\x10\x55\x56\x57\x41\x54\x41\x55\x41\x56\x41\x57\x48\x81\xEC\x40\x01\x00\x00" };
+		inline static function_signature<Voxels*(__fastcall*)(Vector3_u32* size)> New = { "\x48\x89\x5C\x24\x08\x48\x89\x74\x24\x10\x57\x48\x83\xEC\x20\x48\x8B\xF1\xB9\x60\x00\x00\x00" };
 	};
 
 	static_assert(sizeof(VoxelMaterial) == 0x10u, "VoxelMaterial size is incorrect!");

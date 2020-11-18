@@ -34,6 +34,10 @@ namespace Teardown { namespace Entities {
 		uint32_t dwordF0;
 		uint8_t m_IsDynamic; uint8_t padF5[3];
 		uint64_t qwordF8;
+
+		inline static function_signature<void(__fastcall*)(Body* ptr, Transform* transform)> IsDebris = { "\x80\xB9\xF4\x00\x00\x00\x00\x75\x2A\x32\xC0" };
+		inline static function_signature<void(__fastcall*)(Body* ptr, Transform* transform)> SetTransform = { "\x48\x89\x5C\x24\x10\x57\x48\x83\xEC\x20\x80\xB9\xFC\x00\x00\x00\x00" };
+		inline static function_signature<void(__fastcall*)(Body* ptr, small_vector<struct Shape*>& list)> GetShapes = { "\x45\x33\xC9\x45\x8D\x41\x02\xE9\x2A\x2A\x2A\x2A" };
 	};
 
 	static_assert(sizeof(Body) == 0x100u, "Body size is incorrect!");

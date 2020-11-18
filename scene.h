@@ -97,6 +97,10 @@ namespace Teardown {
 		uint32_t dword_784;
 		uint64_t qword_788;
 		uint8_t gap_790[128];
+
+		inline static function_signature<bool(__fastcall*)(Scene* ptr, Vector3_f32* pos, Vector3_f32* dir, float dist, RaycastFilter* f, float* out_dist, Vector3_f32* out_pos, void* out_obj, __int64 out_unk)> Raycast = { "\x48\x8B\xC4\x4C\x89\x40\x18\x48\x89\x50\x10\x55\x56\x57\x41\x54\x41\x55\x41\x56\x41\x57\x48\x8D\xA8\x38\xFC\xFF\xFF" };
+		inline static function_signature<bool(__fastcall*)(Scene* ptr, Vector3_f32* pos, float radius)> CreateExplosion = { "\x48\x8B\xC4\xF3\x0F\x11\x50\x18\x55" };
+		inline static function_signature<bool(__fastcall*)(Scene* ptr, Vector3_f32* pos, Vector3_f32* dir, __int32 type)> CreateProjectile = { "\x48\x89\x5C\x24\x08\x57\x48\x81\xEC\x80\x00\x00\x00" };
 	};
 
 	static_assert(sizeof(Scene::RaycastFilter) == 0x50u, "Scene::RaycastFilter size is incorrect!");

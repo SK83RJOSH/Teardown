@@ -73,4 +73,21 @@ namespace Teardown {
 
 	static_assert(sizeof(small_string) == 16, "small_string size is incorrect!");
 	static_assert(sizeof(small_vector<void>) == 16, "small_vector size is incorrect!");
+
+	/*
+	 * Represents a known good function signature.
+	 * 
+	 * Example usage:
+	 * decltype(Teardown::Game::Update)::Type Game_Update = FindSignature(Teardown::Game.Signature);
+	 * 
+	 * FindSignature is a user defined function accepting a const* char which scans the main Teardown.exe module.
+	 */
+	template<typename T>
+	struct function_signature
+	{
+		/// You can retrieve the function type using decltype(Teardown::Game::Update)::Type.
+		using Type = T;
+		/// You can retrieve the function sigature using Teardown::Game::Update.Signature. Signatures use "\x2A" to represent wild cards.
+		const char* Signature = "";
+	};
 };
