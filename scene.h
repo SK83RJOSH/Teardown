@@ -21,7 +21,9 @@ namespace Teardown {
 			int32_t m_Ignored;
 			bool m_RejectTransparent;
 			uint8_t m_Pad[3];
-			uint8_t m_Unk1[64];
+			small_vector<Entities::Body> m_IgnoredBodies;
+			Entities::Body* m_IgnoredBodiesMemory[4]; // small_vector should support pre-reserved buffers... not going to add that right now.
+			small_vector<Entities::Shape> m_IgnoredShapes;
 		};
 
 		int64_t vftptr_0;
@@ -98,7 +100,8 @@ namespace Teardown {
 		uint64_t qword_788;
 		uint8_t gap_790[128];
 
-		inline static function_signature<bool(__fastcall*)(Scene* ptr, Vector3_f32* pos, Vector3_f32* dir, float dist, RaycastFilter* f, float* out_dist, Vector3_f32* out_pos, void* out_obj, __int64 out_unk)> Raycast = { "\x48\x8B\xC4\x4C\x89\x40\x18\x48\x89\x50\x10\x55\x56\x57\x41\x54\x41\x55\x41\x56\x41\x57\x48\x8D\xA8\x38\xFC\xFF\xFF" };
+		inline static function_signature<bool(__fastcall*)(Scene* ptr, Vector3_f32* pos, Vector3_f32* dir, float dist, RaycastFilter* f, float* out_dist, Vector3_f32* out_pos, Entities::Shape** out_shape, VoxelsPaletteInfo* out_palette)> Raycast = { "\x48\x8B\xC4\x4C\x89\x40\x18\x48\x89\x50\x10\x55\x56\x57\x41\x54\x41\x55\x41\x56\x41\x57\x48\x8D\xA8\x38\xFC\xFF\xFF" };
+		inline static function_signature<bool(__fastcall*)(Scene* ptr, small_vector<Entities::Shape>* out_hit, Vector3_f32* pos, Vector3_f32* dir, RaycastFilter* f)> RaycastIntersect = { "\x4C\x8B\xDC\x57\x41\x56\x41\x57\x48\x81\xEC\x50\x0C\x00\x00\x48\xC7\x44\x24\x20\xFE\xFF\xFF\xFF\x49\x89\x5B\x08\x49\x89\x6B\x10\x49\x89\x73\x18\x49\x8B\xF1" };
 		inline static function_signature<bool(__fastcall*)(Scene* ptr, Vector3_f32* pos, float radius)> CreateExplosion = { "\x48\x8B\xC4\xF3\x0F\x11\x50\x18\x55" };
 		inline static function_signature<bool(__fastcall*)(Scene* ptr, Vector3_f32* pos, Vector3_f32* dir, __int32 type)> CreateProjectile = { "\x48\x89\x5C\x24\x08\x57\x48\x81\xEC\x80\x00\x00\x00" };
 	};

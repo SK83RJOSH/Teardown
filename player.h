@@ -35,9 +35,11 @@ namespace Teardown {
 		bool m_GrabPressed;
 		bool m_UseToolClicked;
 		bool m_UseToolPressed; uint8_t padEA[2];
-		float gapEC[10];
+		float gapEC[11];
 		Entities::Body* m_GrabbedBody;
-		uint8_t gap120[60];
+		uint8_t gap120[44];
+		float m_GrabDistance;
+		uint8_t gap150[12];
 		float m_Health;
 		int field_160;
 		uint8_t gap164[52];
@@ -84,8 +86,7 @@ namespace Teardown {
 		bool m_CanDragTarget; uint8_t pad_4C5[3];
 		Entities::Shape* m_Grabbed;
 		Entities::Shape* m_Interactable;
-		uint16_t field_4D8;
-		uint8_t pad_4D9[2];
+		bool m_InteractableParent; uint8_t pad_4D9[3];
 		uint32_t field_4DC;
 		int64_t field_4E0;
 		int64_t field_4E8;
@@ -122,5 +123,6 @@ namespace Teardown {
 	};
 
 	static_assert(sizeof(Player) == 0x3578u, "Player size is incorrect!");
+	static_assert(sizeof(Player::ToolInfo) == 0x38u, "Player::ToolInfo size is incorrect!");
 #pragma pack(pop)
 }

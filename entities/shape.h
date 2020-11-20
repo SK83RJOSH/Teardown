@@ -13,7 +13,7 @@ namespace Teardown { namespace Entities {
 		uint8_t gap5C[4];
 		uint64_t qword60;
 		uint64_t qword68;
-		uint32_t dword70;
+		uint32_t m_Layer;
 		uint32_t dword74;
 		uint64_t qword78;
 		uint64_t qword80;
