@@ -1,6 +1,6 @@
 #pragma once
 
-#include "types.h"
+#include "../types.h"
 
 namespace Teardown { namespace Internal { namespace VoxLoader {
 #pragma pack(push, 1)

@@ -48,7 +48,7 @@ namespace Teardown { namespace Entities {
 		inline static function_signature<void(__fastcall*)(Entity* ptr, small_string& result, small_string* tag)> GetTagValue = { "\x48\x89\x5C\x24\x08\x48\x89\x6C\x24\x10\x48\x89\x74\x24\x18\x57\x41\x56\x41\x57\x48\x83\xEC\x30\x33\xDB" };
 		inline static function_signature<void(__fastcall*)(Entity* ptr, Entity* parent)> SetParent = { "\x4C\x8B\xC1\x48\x8B\x49\x10\x48\x8B\x41\x20" };
 		inline static function_signature<Entity*(__fastcall*)(Entity* ptr, Type type)> FindParentOfType = { "\x48\x8B\x41\x10\x48\x85\xC0\x74\x2A\x0F\x1F\x80\x00\x00\x00\x00" };
-		inline static function_signature<void(__fastcall*)(Entity* ptr, small_vector<Entity>* list, uint32_t type, bool recursive)> FindChildrenOfType = { "\x48\x89\x5C\x24\x08\x48\x89\x6C\x24\x10\x48\x89\x74\x24\x18\x57\x48\x83\xEC\x20\x48\x8B\x59\x20" };
+		inline static function_signature<void(__fastcall*)(Entity* ptr, small_vector<Entity*>* list, uint32_t type, bool recursive)> FindChildrenOfType = { "\x48\x89\x5C\x24\x08\x48\x89\x6C\x24\x10\x48\x89\x74\x24\x18\x57\x48\x83\xEC\x20\x48\x8B\x59\x20" };
 	};
 
 	static_assert(sizeof(Entity::vftable) == 0x20u, "Entity::vftable size is incorrect!");

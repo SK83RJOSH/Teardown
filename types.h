@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <cassert>
 #include <cstdint>
 #include <cstdlib>
@@ -47,6 +48,25 @@ namespace Teardown {
 		Vector4_f32 m_Rotation;
 	};
 
+	// Misuse of these will cause crashes if used improperly!
+	// I'm forcing you to initialize them somewhere inside of your code to ensure correct usage.
+	// You can find Teardown's instances of malloc and free using signature scanning. If you are exceptionally lazy you can initialize these using pointers to <cstdlib.h> with &malloc and &free.
+	// Be aware, if you pass data to Teardown using the incorrect malloc then you will crash, trigger asserts, and leak memory. So don't be lazy; use the signatures in <teardown/game.h>!
+	extern void* (__cdecl* _Malloc)(size_t size);
+	extern void(__fastcall* _Free)(void* mem);
+
+
+	/*
+	 * Helper class for interacting with Teardown strings.
+	 *
+	 * This string is only meant to be used to forward and receive data from the game.
+	 *
+	 * It does not support:
+	 *     Copying and assignment
+	 *     Modifications
+	 *
+	 * You are welcome to submit pull requests for these if you wish.
+	 */
 	class small_string
 	{
 	public:
@@ -57,7 +77,7 @@ namespace Teardown {
 
 			if (len > 15)
 			{
-				dst = (char*)malloc(len + 1);
+				dst = (char*)_Malloc(len + 1);
 
 				if (dst == nullptr)
 				{
@@ -66,7 +86,7 @@ namespace Teardown {
 
 				if (m_StackBuffer[15])
 				{
-					free(m_HeapBuffer);
+					_Free(m_HeapBuffer);
 				}
 				else
 				{
@@ -79,10 +99,12 @@ namespace Teardown {
 			memcpy(dst, str, len);
 			dst[len] = 0;
 		}
+		small_string(const small_string&) = delete;
+		void operator=(const small_string&) = delete;
 		~small_string() {
 			if (m_StackBuffer[15])
 			{
-				free(m_HeapBuffer);
+				_Free(m_HeapBuffer);
 			}
 		}
 
@@ -95,51 +117,72 @@ namespace Teardown {
 		};
 	};
 
+	 /*
+	  * Helper class for interacting with Teardown vectors.
+	  *
+	  * This vector is only meant to be used to forward and receive data from the game.
+	  * 
+	  * It does not support:
+	  *     Copying and assignment
+	  *     Non-trivially constructible types
+	  *     Insertion, deletion, modification
+	  *
+	  * You are welcome to submit pull requests for these if you wish.
+	  */
 	template<typename T>
 	class small_vector {
 	public:
 		small_vector() {};
 		small_vector(uint32_t capacity) { reserve(capacity); };
+		small_vector(const small_vector&) = delete;
+		void operator=(const small_vector&) = delete;
 		~small_vector() { clear(); }
 
-		T** begin() const { return m_Data; }
-		T** end() const { return m_Data + m_Size; }
-		T** data() const { return m_Data; }
+		T* begin() const { return m_Data; }
+		T* end() const { return m_Data + m_Size; }
+		T* data() const { return m_Data; }
 		uint32_t size() const { return m_Size; }
 		uint32_t capacity() const { return m_Capacity; }
 
 		void reserve(uint32_t capacity) {
-			T** data = m_Data;
-			uint32_t size = m_Size;
-
-			if (auto memory = malloc(sizeof(T) * capacity))
+			if (auto memory = (T*)_Malloc(sizeof(T) * capacity))
 			{
-				m_Size = 0;
-				m_Capacity = capacity;
-				m_Data = (T**)memory;
-				memset(m_Data, 0, sizeof(T) * capacity);
+				T* data = m_Data;
+				uint32_t size = m_Size;
 
-				if (data)
+				if (data != nullptr)
 				{
-					if (size > m_Capacity)
+					if (size >= capacity)
 					{
-						size = m_Capacity;
+						size = capacity;
+					}
+					else
+					{
+						memset(memory, sizeof(T) * size, sizeof(T) * capacity - size);
 					}
 
-					m_Size = capacity;
 					memcpy(m_Data, data, sizeof(T) * size);
-					free(data);
+					_Free(data);
+					m_Size = size;
 				}
+				else
+				{
+					m_Size = 0;
+					memset(memory, 0, sizeof(T) * capacity);
+				}
+
+				m_Data = memory;
+				m_Capacity = capacity;
 			}
 		}
 
 		void clear()
 		{
-			if (m_Data)
+			if (m_Data != nullptr)
 			{
 				m_Size = 0;
 				m_Capacity = 0;
-				free(m_Data);
+				_Free(m_Data);
 				m_Data = nullptr;
 			}
 		}
@@ -147,7 +190,7 @@ namespace Teardown {
 	private:
 		uint32_t m_Size = 0;
 		uint32_t m_Capacity = 0;
-		T** m_Data = nullptr;
+		T* m_Data = nullptr;
 	};
 
 	/*
@@ -157,6 +200,8 @@ namespace Teardown {
 	 * decltype(Teardown::Game::Update)::Type Game_Update = FindSignature(Teardown::Game.Signature);
 	 *
 	 * FindSignature is a user defined function accepting a const* char which scans the main Teardown.exe module.
+	 * 
+	 * These signatures do not have a "mask" on purpose. I use (*) \x2A to represent wildcards. This maps to an unused instruction in x86/x64.
 	 */
 	template<typename T>
 	struct function_signature
