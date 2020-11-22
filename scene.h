@@ -6,6 +6,7 @@
 
 #include "entities/tag.h"
 #include "entities/entity.h"
+#include "entities/joint.h"
 #include "entities/light.h"
 #include "entities/screen.h"
 #include "entities/shape.h"
@@ -74,7 +75,7 @@ namespace Teardown {
 		small_vector<Entities::Entity*>* m_Locations;
 		small_vector<Entities::Water*>* m_Waters;
 		small_vector<Entities::Entity*>* m_Enemies;
-		small_vector<Entities::Entity*>* m_Joints;
+		small_vector<Entities::Joint*>* m_Joints;
 		small_vector<Entities::Vehicle*>* m_Vehicles;
 		small_vector<Entities::Wheel*>* m_Wheels;
 		small_vector<Entities::Screen*>* m_Screens;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entity.h"
+#include "joint.h"
 #include "../voxels.h"
 #include "../convex.h"
 
@@ -21,7 +22,7 @@ namespace Teardown { namespace Entities {
 		float m_Highlight;
 		Teardown::Voxels* m_Voxels;
 		Teardown::Convex* m_Convex;
-		uint64_t qwordA0;
+		Joint* m_Joint;
 		float m_Emissive;
 		bool m_Broken; uint8_t pad[3];
 
