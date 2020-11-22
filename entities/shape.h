@@ -26,6 +26,7 @@ namespace Teardown { namespace Entities {
 		float m_Emissive;
 		bool m_Broken; uint8_t pad[3];
 
+		inline static function_signature<void(__fastcall*)(Shape* ptr, Entity* parent)> Constructor = { "\x40\x53\x48\x83\xEC\x20\x4C\x8B\xC2\x48\x8B\xD9\xBA\x02\x00\x00\x00" };
 		inline static function_signature<void(__fastcall*)(Shape* ptr, Transform& transform)> GetWorldTransform = { "\x40\x53\x48\x83\xEC\x20\x4C\x8D\x41\x28" };
 	};
 
