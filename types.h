@@ -54,7 +54,15 @@ namespace Teardown {
 	// Be aware, if you pass data to Teardown using the incorrect malloc then you will crash, trigger asserts, and leak memory. So don't be lazy; use the signatures in <teardown/game.h>!
 	extern void* (__cdecl* _Malloc)(size_t size);
 	extern void(__fastcall* _Free)(void* mem);
-
+	
+	/*
+	 * Helper for creating a new object of a given type.
+	 */
+	template<class T>
+	T* New()
+	{
+		return static_cast<T*>(_Malloc(sizeof(T)));
+	}
 
 	/*
 	 * Helper class for interacting with Teardown strings.

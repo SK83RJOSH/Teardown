@@ -63,6 +63,8 @@ namespace Teardown {
 		inline static function_signature<Voxels*(__fastcall*)(Vector3_u32* size)> New = { "\x48\x89\x5C\x24\x08\x48\x89\x74\x24\x10\x57\x48\x83\xEC\x20\x48\x8B\xF1\xB9\x60\x00\x00\x00" };
 	};
 
+	constexpr float VoxelSize = 1.f / 10.f;
+
 	static_assert(sizeof(VoxelMaterial) == 0x10u, "VoxelMaterial size is incorrect!");
 	static_assert(sizeof(VoxelColor) == 0x10u, "VoxelColor size is incorrect!");
 	static_assert(sizeof(VoxelsPaletteInfo) == 0x28u, "VoxelsPaletteInfo size is incorrect!");
