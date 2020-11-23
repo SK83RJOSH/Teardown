@@ -1,8 +1,8 @@
 #pragma once
 
-
 #include "player.h"
 #include "fire_system.h"
+#include "physics_system.h"
 
 #include "entities/tag.h"
 #include "entities/entity.h"
@@ -30,13 +30,34 @@ namespace Teardown {
 			small_vector<Entities::Shape*> m_IgnoredShapes;
 		};
 
+		struct JointInfo
+		{
+			Entities::Joint* m_Joint;
+			Entities::Joint::Type m_Type;
+			Transform m_Transform;
+			bool m_Collide; uint8_t pad_29[3];
+			float m_Size;
+			float m_Stiffness;
+			float m_Springiness;
+			Vector3_f32 m_Position0;
+			Vector3_f32 m_Position1;
+			Vector4_f32 m_Color;
+			float m_Slack;
+			float m_Strength;
+			float m_MaxStretch;
+			Vector2_f32 m_Limits;
+			bool m_Sound; uint8_t pad_75[3];
+		};
+
 		int64_t vftptr_0;
-		uint64_t qword_8;
+		PhysicsSystem* m_PhysicsSystem;
 		uint64_t qword_10;
 		uint32_t dword_18;
 		uint32_t dword_1C;
 		uint64_t qword_20;
-		uint8_t gap_28[64];
+		uint8_t gap_28[24];
+		small_vector<JointInfo> m_PendingJoints;
+		uint8_t gap_38[24];
 		uint64_t qword_68;
 		uint64_t qword_70;
 		uint64_t qword_78;
@@ -49,7 +70,7 @@ namespace Teardown {
 		uint64_t qword_B0;
 		uint64_t qword_B8;
 		uint64_t qword_C0;
-		Transform m_PlayerTransform;
+		Transform m_SpawnPoint;
 		uint8_t gap_E4[12];
 		uint64_t qword_F0;
 		uint8_t byte_F8; uint8_t pad_F9[7];
@@ -58,7 +79,7 @@ namespace Teardown {
 		uint64_t qword_110;
 		uint64_t qword_118;
 		Entities::Vehicle* m_ActiveVehicle;
-		uint64_t m_ActiveScreen;
+		Entities::Screen* m_ActiveScreen;
 		uint64_t qword_130;
 		uint32_t dword_138;
 		uint32_t dword_13C;
@@ -87,8 +108,10 @@ namespace Teardown {
 		uint64_t qword_2A8;
 		small_vector<Entities::Tag> m_EntityTags;
 		uint32_t m_NextEntityId;
-		uint32_t dword_2C8;
-		uint8_t gap_2CC[1144];
+		uint32_t dword_2C4;
+		uint8_t gap_2C8[616];
+		small_vector<Vector2_f32> m_BoundaryVertices;
+		uint8_t gap_540[512];
 		uint32_t dword_740;
 		bool m_CanQuickLoad;
 		uint8_t gap_745[3];
@@ -111,7 +134,9 @@ namespace Teardown {
 		inline static function_signature<bool(__fastcall*)(Scene* ptr, Vector3_f32* pos, Vector3_f32* dir, __int32 type)> CreateProjectile = { "\x48\x89\x5C\x24\x08\x57\x48\x81\xEC\x80\x00\x00\x00" };
 	};
 
+
 	static_assert(sizeof(Scene::RaycastFilter) == 0x50u, "Scene::RaycastFilter size is incorrect!");
+	static_assert(sizeof(Scene::JointInfo) == 0x78u, "Scene::JointInfo size incorrect!");
 	static_assert(sizeof(Scene) == 0x810u, "Scene size is incorrect!");
 #pragma pack(pop)
 }

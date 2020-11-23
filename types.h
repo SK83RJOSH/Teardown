@@ -142,7 +142,7 @@ namespace Teardown {
 	  * It does not support:
 	  *     Copying and assignment
 	  *     Non-trivially constructible types
-	  *     Insertion, deletion, modification
+	  *     Deletion
 	  *
 	  * You are welcome to submit pull requests for these if you wish.
 	  */
@@ -160,6 +160,17 @@ namespace Teardown {
 		T* data() const { return m_Data; }
 		uint32_t size() const { return m_Size; }
 		uint32_t capacity() const { return m_Capacity; }
+
+		void push_back(const T& value)
+		{
+			if (m_Capacity <= m_Size)
+			{
+				reserve(2 * m_Capacity + 1);
+			}
+
+			m_Data[m_Size] = value;
+			++m_Size;
+		}
 
 		void reserve(uint32_t capacity) {
 			if (auto memory = MemoryNew<T>(capacity))
@@ -230,5 +241,5 @@ namespace Teardown {
 	};
 
 	static_assert(sizeof(small_string) == 16, "small_string size is incorrect!");
-	static_assert(sizeof(small_vector<void>) == 16, "small_vector size is incorrect!");
+	static_assert(sizeof(small_vector<uint8_t>) == 16, "small_vector size is incorrect!");
 };
