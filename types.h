@@ -52,16 +52,25 @@ namespace Teardown {
 	// I'm forcing you to initialize them somewhere inside of your code to ensure correct usage.
 	// You can find Teardown's instances of malloc and free using signature scanning. If you are exceptionally lazy you can initialize these using pointers to <cstdlib.h> with &malloc and &free.
 	// Be aware, if you pass data to Teardown using the incorrect malloc then you will crash, trigger asserts, and leak memory. So don't be lazy; use the signatures in <teardown/game.h>!
-	extern void* (__cdecl* _Malloc)(size_t size);
-	extern void(__fastcall* _Free)(void* mem);
+	extern void* (__cdecl* MemoryAlloc)(size_t size);
+	extern void(__fastcall* MemoryFree)(void* mem);
 	
 	/*
-	 * Helper for creating a new object of a given type.
+	 * Helper for creating an object of a given type.
 	 */
 	template<class T>
-	T* New()
+	T* MemoryNew()
 	{
-		return static_cast<T*>(_Malloc(sizeof(T)));
+		return static_cast<T*>(MemoryAlloc(sizeof(T)));
+	}
+	
+	/*
+	 * Helper for creating an array of objects of a given type.
+	 */
+	template<class T>
+	T* MemoryNew(size_t size)
+	{
+		return static_cast<T*>(MemoryAlloc(sizeof(T) * size));
 	}
 
 	/*
@@ -85,7 +94,7 @@ namespace Teardown {
 
 			if (len > 15)
 			{
-				dst = (char*)_Malloc(len + 1);
+				dst = MemoryNew<char>(len + 1);
 
 				if (dst == nullptr)
 				{
@@ -94,7 +103,7 @@ namespace Teardown {
 
 				if (m_StackBuffer[15])
 				{
-					_Free(m_HeapBuffer);
+					MemoryFree(m_HeapBuffer);
 				}
 				else
 				{
@@ -112,7 +121,7 @@ namespace Teardown {
 		~small_string() {
 			if (m_StackBuffer[15])
 			{
-				_Free(m_HeapBuffer);
+				MemoryFree(m_HeapBuffer);
 			}
 		}
 
@@ -153,7 +162,7 @@ namespace Teardown {
 		uint32_t capacity() const { return m_Capacity; }
 
 		void reserve(uint32_t capacity) {
-			if (auto memory = (T*)_Malloc(sizeof(T) * capacity))
+			if (auto memory = MemoryNew<T>(capacity))
 			{
 				T* data = m_Data;
 				uint32_t size = m_Size;
@@ -170,7 +179,7 @@ namespace Teardown {
 					}
 
 					memcpy(m_Data, data, sizeof(T) * size);
-					_Free(data);
+					MemoryFree(data);
 					m_Size = size;
 				}
 				else
@@ -190,7 +199,7 @@ namespace Teardown {
 			{
 				m_Size = 0;
 				m_Capacity = 0;
-				_Free(m_Data);
+				MemoryFree(m_Data);
 				m_Data = nullptr;
 			}
 		}
