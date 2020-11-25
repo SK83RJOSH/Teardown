@@ -14,6 +14,17 @@ namespace Teardown {
 			Transform m_Transform;
 		};
 
+		struct GrabInfo {
+			Entities::Body* m_Body;
+			Vector3_f32 m_BodyPosition;
+			Vector3_f32 m_TargetPosition;
+			Vector4_f32 m_Rotation;
+			float m_Distance;
+			float m_TargetDistance;
+			Entities::Body* m_Target;
+			bool m_Throwing; uint8_t pad_41[3];
+		};
+
 		Transform m_TargetTransform;
 		Transform m_DeltaTransform;
 		Vector3_f32 m_CurrentVelocity;
@@ -36,10 +47,7 @@ namespace Teardown {
 		bool m_UseToolClicked;
 		bool m_UseToolPressed; uint8_t padEA[2];
 		float gapEC[11];
-		Entities::Body* m_GrabbedBody;
-		uint8_t gap120[44];
-		float m_GrabDistance;
-		uint8_t gap150[12];
+		GrabInfo m_GrabInfo;
 		float m_Health;
 		int field_160;
 		uint8_t gap164[52];
