@@ -27,11 +27,10 @@ namespace Teardown { namespace Entities {
 		uint64_t qwordBC;
 		uint64_t qwordC4;
 		uint32_t dwordCC;
+		uint64_t qwordD0;
+		uint32_t dwordD8;
 		Vector3_f32 m_MinBounds;
 		Vector3_f32 m_MaxBounds;
-		bool byteE8; uint8_t padE9[3];
-		uint32_t dwordEC;
-		uint32_t dwordF0;
 		uint8_t m_IsDynamic; uint8_t padF5[3];
 		uint64_t qwordF8;
 
