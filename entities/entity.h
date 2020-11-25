@@ -51,6 +51,21 @@ namespace Teardown { namespace Entities {
 		inline static function_signature<void(__fastcall*)(Entity* ptr, small_vector<Entity*>& list, uint32_t type, bool recursive)> FindChildrenOfType = { "\x48\x89\x5C\x24\x08\x48\x89\x6C\x24\x10\x48\x89\x74\x24\x18\x57\x48\x83\xEC\x20\x48\x8B\x59\x20" };
 	};
 
+	inline Entity::Flags operator|(Entity::Flags a, Entity::Flags b)
+	{
+		return static_cast<Entity::Flags>(static_cast<uint8_t>(a) | static_cast<uint8_t>(b));
+	};
+
+	inline Entity::Flags operator&(Entity::Flags a, Entity::Flags b)
+	{
+		return static_cast<Entity::Flags>(static_cast<uint8_t>(a) & static_cast<uint8_t>(b));
+	};
+
+	inline bool operator!(Entity::Flags a)
+	{
+		return static_cast<uint8_t>(a) == 0;
+	};
+
 	static_assert(sizeof(Entity::vftable) == 0x20u, "Entity::vftable size is incorrect!");
 	static_assert(sizeof(Entity::Type) == 0x1u, "Entity::Type size is incorrect!");
 	static_assert(sizeof(Entity::Flags) == 0x1u, "Entity::Flags size is incorrect!");
