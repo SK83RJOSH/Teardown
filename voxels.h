@@ -35,13 +35,13 @@ namespace Teardown {
 		uint8_t m_Padding[2048];
 	};
 
-	// Voxel buffers can be indexed via m_Buffer[voxel_x_pos + m_BuffersSize.m_X * (voxel_y_pos + m_BuffersSize.m_Z * voxel_z_pos)]
+	// Voxel buffers can be indexed via m_Buffer[voxel_x_pos + m_BuffersSize.m_X * (voxel_y_pos + m_BuffersSize.m_Y * voxel_z_pos)]
 	struct Voxels
 	{
 		Vector3_u32 m_BufferSize; // Size of both the physics / material buffer
 		uint8_t padC[4];
-		uint8_t* m_MaterialBuffer; // Pointer to the rendering material "type" of each voxel, as defined in the scene Magica Voxel palette
-		uint8_t* m_PhysicsBuffer; // Pointer to the physics "type" of each voxel, it's in the same order as the group names in the Magica Voxel palette
+		uint8_t* m_MaterialBuffer; // Pointer to the rendering material index of each voxel, as defined in the scene Magica Voxel palette
+		uint8_t* m_PhysicsBuffer; // Pointer to the physics data for each voxel, each voxel encodes it's "normal" using a single bit per direction
 		float m_Scale; // Rendering and physics scale, breaks lighting if used
 		Vector3_u16 m_TextureSize; // Size of the OpenGL texture
 		uint64_t qword2A;
